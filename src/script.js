@@ -220,7 +220,7 @@
   // Theme toggle
   function toggleTheme() {
     const isLight = document.documentElement.classList.toggle('light');
-    document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+    document.getElementById('themeToggle').textContent = isLight ? '' : '';
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   }
 
@@ -231,7 +231,7 @@
       document.documentElement.classList.add('light');
       document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('themeToggle');
-        if (btn) btn.textContent = '☀️';
+        if (btn) btn.textContent = '';
       });
     }
   })();
@@ -360,10 +360,10 @@
         <p class="text-slate-400 text-xs mt-1">${d.meta.description || ''}</p>
       </div>
       <div class="flex gap-4 text-xs text-slate-400 flex-wrap">
-        <span>⭐ ${d.meta.stars}</span>
-        <span>🍴 ${d.meta.forks}</span>
+        <span> ${d.meta.stars}</span>
+        <span> ${d.meta.forks}</span>
         <span> ${d.meta.open_issues} open issues</span>
-        <span>🌐 ${d.meta.language || 'mixed'}</span>
+        <span> ${d.meta.language || 'mixed'}</span>
       </div>` : '';
 
     // Summary stats
@@ -388,10 +388,10 @@
       btn.className = `text-left px-2 py-1.5 rounded text-xs transition w-full flex items-center gap-1.5
         ${isActive ? 'bg-blue-700 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`;
       btn.innerHTML = `
-        <span class="shrink-0">${b.is_default ? '⭐' : '🌿'}</span>
+        <span class="shrink-0">${b.is_default ? '' : ''}</span>
         <span class="truncate flex-1">${esc(b.name)}</span>
         <span class="shrink-0 ${b.merged ? 'text-green-400' : 'text-yellow-400'}" title="${b.merged ? 'merged' : 'unmerged'}">
-          ${b.merged ? '✓' : '○'}
+          ${b.merged ? '' : '○'}
         </span>`;
       btn.title = `${b.name} · ${b.merged ? 'merged' : 'unmerged'} · ${b.sha}`;
       btn.id = `branch-btn-${b.name}`;
@@ -401,7 +401,7 @@
       // Dropdown option
       const opt = document.createElement('option');
       opt.value = b.name;
-      opt.textContent = `${b.is_default ? '⭐ ' : ''}${b.name} ${b.merged ? '✓' : '○'}`;
+      opt.textContent = `${b.is_default ? ' ' : ''}${b.name} ${b.merged ? '' : '○'}`;
       if (isActive) opt.selected = true;
       dd.appendChild(opt);
     });
@@ -416,7 +416,7 @@
         btn.className = `text-left px-2 py-1.5 rounded text-xs transition w-full flex items-center gap-1.5
           ${isActive ? 'bg-purple-700 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`;
         btn.innerHTML = `
-          <span class="shrink-0">🏷</span>
+          <span class="shrink-0"></span>
           <span class="truncate flex-1">${esc(t.name)}</span>
           <span class="shrink-0 text-slate-500 font-mono">${esc(t.sha || '')}</span>`;
         btn.title = `Tag: ${t.name} · ${t.sha || ''}`;
@@ -436,14 +436,14 @@
     // Commits — update tab label with count
     const commitCount = (d.commits || []).length;
     document.getElementById('tab-commits').innerHTML =
-      `🔖 Commits${commitCount ? ` <span class="ml-1 bg-slate-700 text-slate-300 text-xs px-1.5 py-0.5 rounded-full">${commitCount}</span>` : ''}`;
+      ` Commits${commitCount ? ` <span class="ml-1 bg-slate-700 text-slate-300 text-xs px-1.5 py-0.5 rounded-full">${commitCount}</span>` : ''}`;
     renderCommitsTab(d.commits);
 
     // PRs
     renderList('prs', d.pull_requests, pr => `
       <div class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 flex gap-3 items-start">
         <span class="shrink-0 ${pr.state==='open' ? 'text-green-400' : 'text-purple-400'}">
-          ${pr.state==='open' ? '🟢' : '🟣'}
+          ${pr.state==='open' ? '' : ''}
         </span>
         <div class="flex-1 min-w-0">
           <a href="${pr.url}" target="_blank" class="text-blue-400 hover:underline truncate block">#${pr.number} ${esc(pr.title)}</a>
@@ -527,16 +527,16 @@
 
     if (!allIssues.length) {
       c.innerHTML = `<div class="flex flex-col items-center py-16 gap-3 text-slate-500">
-        <span class="text-4xl">✅</span>
+        <span class="text-4xl"></span>
         <p>No code issues found!</p>
       </div>`;
       // Update tab badge
-      document.getElementById('tab-warnings').innerHTML = '⚠️ Code Issues';
+      document.getElementById('tab-warnings').innerHTML = ' Code Issues';
       return;
     }
 
     // Update tab badge with count
-    document.getElementById('tab-warnings').innerHTML = `⚠️ Code Issues <span class="ml-1 bg-yellow-700/60 text-yellow-300 text-xs px-1.5 py-0.5 rounded-full">${allIssues.length}</span>`;
+    document.getElementById('tab-warnings').innerHTML = ` Code Issues <span class="ml-1 bg-yellow-700/60 text-yellow-300 text-xs px-1.5 py-0.5 rounded-full">${allIssues.length}</span>`;
 
     // Search/filter bar
     const filterBar = document.createElement('div');
@@ -593,7 +593,7 @@
                     <span class="comment-count text-slate-500 text-xs"></span>
                   </div>
                   <div class="comment-thread mt-1 hidden flex flex-col gap-1"></div>
-                  <button class="text-xs text-slate-500 hover:text-slate-300 mt-1" onclick="this.nextElementSibling.classList.toggle('hidden');this.classList.add('hidden')">💬 discuss / assign</button>
+                  <button class="text-xs text-slate-500 hover:text-slate-300 mt-1" onclick="this.nextElementSibling.classList.toggle('hidden');this.classList.add('hidden')"> discuss / assign</button>
                   <div class="collab-panel hidden mt-1"></div>
                 </div>
               </li>`).join('')}
@@ -634,7 +634,7 @@
           </div>
         </div>
         ${hasIssues ? `<ul class="px-4 py-2 flex flex-col gap-1">
-          ${f.issues.map(i=>`<li class="text-yellow-300 text-xs">⚠️ ${esc(i)}</li>`).join('')}
+          ${f.issues.map(i=>`<li class="text-yellow-300 text-xs"> ${esc(i)}</li>`).join('')}
         </ul>` : ''}`;
       c.appendChild(div);
     });
@@ -682,7 +682,7 @@
       div.innerHTML = `
         <div class="flex-1 min-w-0">
           <p class="text-blue-400 truncate">${esc(h.repo_url)}</p>
-          <p class="text-slate-400 text-xs mt-0.5">🌿 ${esc(h.branch)} · 📁 ${h.summary.total} files · ⚠️ ${h.summary.issues} issues · ${h.id.slice(0,10)}</p>
+          <p class="text-slate-400 text-xs mt-0.5"> ${esc(h.branch)} ·  ${h.summary.total} files ·  ${h.summary.issues} issues · ${h.id.slice(0,10)}</p>
         </div>
         <button class="text-xs bg-blue-700 hover:bg-blue-600 text-white px-3 py-1 rounded-lg transition shrink-0">Re-run</button>`;
       div.querySelector('button').onclick = () => {
@@ -703,7 +703,7 @@
 
   // utils
   function setLoading(on) {
-    document.getElementById('btnIcon').textContent = on ? '⏳' : '🚀';
+    document.getElementById('btnIcon').textContent = on ? '' : '';
     document.getElementById('btnText').textContent = on ? 'Analyzing...' : 'Analyze';
     const btn = document.getElementById('analyzeBtn') || document.querySelector('button[onclick="analyze()"]');
     if (btn) { btn.disabled = on; btn.classList.toggle('opacity-60', on); }
@@ -972,7 +972,7 @@
       div.innerHTML = `
         <div class="flex-1 min-w-0">
           <p class="text-blue-400 truncate text-sm">${esc(item.repo_url)}</p>
-          <p class="text-slate-400 text-xs mt-0.5">🌿 ${esc(item.branch)} · shared by ${esc(item.owner_email)} · ${item.shared_at.slice(0,10)}</p>
+          <p class="text-slate-400 text-xs mt-0.5"> ${esc(item.branch)} · shared by ${esc(item.owner_email)} · ${item.shared_at.slice(0,10)}</p>
         </div>
         <div class="flex items-center gap-3 shrink-0">
           <span class="font-bold text-sm ${scoreColor}">${item.quality_score}</span>
@@ -1021,12 +1021,12 @@
 
       const assigneeEl = card.querySelector('.assignee-badge');
       if (assigneeEl) {
-        assigneeEl.textContent = assignment ? `👤 ${assignment.assignee_email}` : '';
+        assigneeEl.textContent = assignment ? ` ${assignment.assignee_email}` : '';
         assigneeEl.classList.toggle('hidden', !assignment);
       }
 
       const countEl = card.querySelector('.comment-count');
-      if (countEl) countEl.textContent = cardComments.length ? `💬 ${cardComments.length}` : '';
+      if (countEl) countEl.textContent = cardComments.length ? ` ${cardComments.length}` : '';
 
       const threadEl = card.querySelector('.comment-thread');
       if (threadEl) renderCommentThread(threadEl, reportId, key, cardComments);
@@ -1047,7 +1047,7 @@
           <span class="text-slate-500 ml-1">${c.created_at.slice(0,10)}</span>
           <p class="text-slate-300 mt-0.5">${esc(c.text)}</p>
         </div>
-        ${c.author_email === authEmail ? `<button onclick="deleteComment('${reportId}','${c.comment_id}',this)" class="text-red-400 hover:text-red-300 shrink-0 text-xs">✕</button>` : ''}`;
+        ${c.author_email === authEmail ? `<button onclick="deleteComment('${reportId}','${c.comment_id}',this)" class="text-red-400 hover:text-red-300 shrink-0 text-xs"></button>` : ''}`;
       container.appendChild(div);
     });
 
@@ -1094,7 +1094,7 @@
     const card = container.closest('[data-issue-key]');
     if (card) {
       const countEl = card.querySelector('.comment-count');
-      if (countEl) countEl.textContent = `💬 ${allComments.length}`;
+      if (countEl) countEl.textContent = ` ${allComments.length}`;
     }
   }
 
@@ -1119,6 +1119,6 @@
     if (!res.ok) return;
     if (card) {
       const badge = card.querySelector('.assignee-badge');
-      if (badge) { badge.textContent = `👤 ${email}`; badge.classList.remove('hidden'); }
+      if (badge) { badge.textContent = ` ${email}`; badge.classList.remove('hidden'); }
     }
   }
