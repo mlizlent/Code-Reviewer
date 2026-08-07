@@ -1,27 +1,49 @@
   .active-nav  { background: #1e293b; color: white; }
   .active-tab  { background: #1e293b; color: white; border: 1px solid #334155; border-bottom: none; }
 
-  /* Light mode overrides - Better contrast and appealing colors */
-  html.light body                          { background: #f8fafc; color: #1e293b; }
-  html.light aside                         { background: #ffffff; border-color: #e2e8f0; box-shadow: 2px 0 8px rgba(0,0,0,0.05); }
-  html.light .bg-slate-950                 { background: #ffffff !important; border-bottom: 1px solid #e2e8f0; }
-  html.light .bg-slate-800                 { background: #ffffff !important; border: 1px solid #e2e8f0 !important; }
-  html.light .bg-slate-700                 { background: #f1f5f9 !important; }
-  html.light .border-slate-800            { border-color: #e2e8f0 !important; }
-  html.light .border-slate-700            { border-color: #cbd5e1 !important; }
-  html.light .text-slate-100              { color: #1e293b !important; }
-  html.light .text-slate-400              { color: #64748b !important; }
-  html.light .text-slate-500              { color: #64748b !important; }
-  html.light .text-slate-600              { color: #475569 !important; }
-  html.light .text-white                  { color: #0f172a !important; font-weight: 500; }
-  html.light .text-slate-200              { color: #334155 !important; }
-  html.light .text-slate-300              { color: #475569 !important; }
-  html.light .placeholder-slate-500::placeholder { color: #94a3b8; }
-  html.light input, html.light select     { background: #ffffff !important; color: #0f172a !important; border-color: #cbd5e1 !important; }
-  html.light .active-nav                  { background: #3b82f6; color: #ffffff !important; }
-  html.light .active-tab                  { background: #ffffff; color: #3b82f6 !important; border-color: #3b82f6; font-weight: 600; }
-  html.light .hover\:bg-slate-800:hover   { background: #f1f5f9 !important; }
-  html.light #themeToggle                 { background: #3b82f6 !important; color: #ffffff !important; }
+  /* Mobile sidebar */
+  #sidebar {
+    transition: transform 0.3s ease-in-out;
+  }
+  #sidebar.open {
+    transform: translateX(0) !important;
+  }
+  #sidebarOverlay {
+    transition: opacity 0.3s ease-in-out;
+  }
+  body.sidebar-open {
+    overflow: hidden;
+  }
+
+  @media (min-width: 1024px) {
+    #sidebarOverlay {
+      display: none !important;
+    }
+  }
+
+   /* Light mode overrides - Better contrast and appealing colors */
+   html.light body                          { background: #f8fafc; color: #1e293b; }
+   html.light aside                         { background: #ffffff; border-color: #e2e8f0; box-shadow: 2px 0 8px rgba(0,0,0,0.05); }
+   html.light #sidebar                      { background: #ffffff !important; border-color: #e2e8f0 !important; }
+   html.light .bg-slate-950                 { background: #ffffff !important; border-bottom: 1px solid #e2e8f0; }
+   html.light .bg-slate-800                 { background: #ffffff !important; border: 1px solid #e2e8f0 !important; }
+   html.light .bg-slate-700                 { background: #f1f5f9 !important; }
+   html.light .border-slate-800            { border-color: #e2e8f0 !important; }
+   html.light .border-slate-700            { border-color: #cbd5e1 !important; }
+   html.light .text-slate-100              { color: #1e293b !important; }
+   html.light .text-slate-400              { color: #64748b !important; }
+   html.light .text-slate-500              { color: #64748b !important; }
+   html.light .text-slate-600              { color: #475569 !important; }
+   html.light .text-white                  { color: #0f172a !important; font-weight: 500; }
+   html.light .text-slate-200              { color: #334155 !important; }
+   html.light .text-slate-300              { color: #475569 !important; }
+   html.light .placeholder-slate-500::placeholder { color: #94a3b8; }
+   html.light input, html.light select     { background: #ffffff !important; color: #0f172a !important; border-color: #cbd5e1 !important; }
+   html.light .active-nav                  { background: #3b82f6; color: #ffffff !important; }
+   html.light .active-tab                  { background: #ffffff; color: #3b82f6 !important; border-color: #3b82f6; font-weight: 600; }
+   html.light .hover\:bg-slate-800:hover   { background: #f1f5f9 !important; }
+   html.light #themeToggleDesktop,
+   html.light #themeToggleMobile           { background: #3b82f6 !important; color: #ffffff !important; }
   
   /* Status colors - Blue shades instead of green/yellow, remove navy */
   html.light .text-blue-400               { color: #2563eb !important; }

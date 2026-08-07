@@ -16,8 +16,23 @@
 
 <div class="flex h-screen overflow-hidden">
 
+  <!-- Mobile sidebar overlay -->
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden"></div>
+
+  <!-- Mobile top bar -->
+  <div class="lg:hidden fixed top-0 left-0 right-0 z-20 bg-slate-950 border-b border-slate-800 p-3 flex items-center justify-between shrink-0">
+    <button onclick="toggleSidebar()" class="text-white p-2 hover:bg-slate-800 rounded-lg transition">
+      <i class="fas fa-bars text-lg"></i>
+    </button>
+    <span class="font-bold text-white text-sm">Repo Analyzer</span>
+    <button onclick="toggleTheme()" id="themeToggleMobile" title="Toggle light/dark mode"
+      class="text-white px-3 py-2 rounded-lg text-base shrink-0">
+      <i class="fas fa-moon"></i>
+    </button>
+  </div>
+
   <!-- Sidebar -->
-  <aside class="w-64 bg-slate-950 light:bg-white border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto">
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-950 light:bg-white border-r border-slate-800 flex flex-col transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out overflow-y-auto">
     <div class="p-4 border-b border-slate-800 flex items-center gap-2">
       <i class="fas fa-search text-blue-400 text-xl"></i>
       <span class="font-bold text-white text-base">Repo Analyzer</span>
@@ -74,24 +89,24 @@
   </aside>
 
   <!-- Main content -->
-  <main class="flex-1 flex flex-col overflow-hidden">
+  <main class="flex-1 flex flex-col overflow-hidden pt-12 lg:pt-0">
 
-    <!-- Top bar -->
-    <div class="bg-slate-950 border-b border-slate-800 p-4 flex gap-3 flex-wrap items-center shrink-0">
-      <input id="repoUrl" type="text" placeholder="https://github.com/user/repo"
-        class="flex-1 min-w-0 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-      <select id="branchDropdown" onchange="switchBranch(this.value)"
-        class="hidden bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </select>
-      <button onclick="analyze()"
-        class="bg-blue-600 hover:bg-blue-500 active:scale-95 transition text-white font-semibold px-5 py-2 rounded-lg flex items-center gap-2">
-        <span id="btnIcon"><i class="fas fa-rocket"></i></span><span id="btnText">Analyze</span>
-      </button>
-      <button onclick="toggleTheme()" id="themeToggle" title="Toggle light/dark mode"
-        class="bg-slate-700 hover:bg-slate-600 transition text-white px-3 py-2 rounded-lg text-base shrink-0">
-        <i class="fas fa-moon"></i>
-      </button>
-    </div>
+     <!-- Top bar -->
+     <div class="bg-slate-950 border-b border-slate-800 p-3 sm:p-4 flex gap-2 sm:gap-3 flex-wrap items-center shrink-0">
+       <input id="repoUrl" type="text" placeholder="https://github.com/user/repo"
+         class="flex-1 min-w-0 bg-slate-800 border border-slate-700 rounded-lg px-3 sm:px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"/>
+       <select id="branchDropdown" onchange="switchBranch(this.value)"
+         class="hidden bg-slate-800 border border-slate-700 rounded-lg px-2 sm:px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+       </select>
+       <button onclick="analyze()"
+         class="bg-blue-600 hover:bg-blue-500 active:scale-95 transition text-white font-semibold px-3 sm:px-5 py-2 rounded-lg flex items-center gap-2 text-sm">
+         <span id="btnIcon"><i class="fas fa-rocket"></i></span><span id="btnText">Analyze</span>
+       </button>
+       <button onclick="toggleTheme()" id="themeToggleDesktop" title="Toggle light/dark mode"
+         class="hidden lg:block bg-slate-700 hover:bg-slate-600 transition text-white px-3 py-2 rounded-lg text-base shrink-0">
+         <i class="fas fa-moon"></i>
+       </button>
+     </div>
 
     <!-- Error banner -->
     <div id="errorBox" class="hidden mx-4 mt-3 bg-red-100 border border-red-500 text-black px-4 py-2 rounded-lg shrink-0 font-medium"></div>

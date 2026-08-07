@@ -220,8 +220,16 @@
   // Theme toggle
   function toggleTheme() {
     const isLight = document.documentElement.classList.toggle('light');
-    document.getElementById('themeToggle').textContent = isLight ? '' : '';
+    updateThemeIcons(isLight);
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }
+
+  function updateThemeIcons(isLight) {
+    const icon = isLight ? 'fa-sun' : 'fa-moon';
+    const desktop = document.getElementById('themeToggleDesktop');
+    const mobile = document.getElementById('themeToggleMobile');
+    if (desktop) desktop.innerHTML = `<i class="fas ${icon}"></i>`;
+    if (mobile) mobile.innerHTML = `<i class="fas ${icon}"></i>`;
   }
 
   // Apply saved theme on load
@@ -229,10 +237,7 @@
     const saved = localStorage.getItem('theme');
     if (saved === 'light') {
       document.documentElement.classList.add('light');
-      document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('themeToggle');
-        if (btn) btn.textContent = '';
-      });
+      updateThemeIcons(true);
     }
   })();
 
@@ -249,7 +254,41 @@
     if (v === 'history') loadHistory();
     if (v === 'analytics') loadAnalytics();
     if (v === 'shared') loadSharedReports();
+    closeSidebar();
   }
+
+  // Mobile sidebar
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isOpen = sidebar.classList.contains('open');
+    if (isOpen) {
+      closeSidebar();
+    } else {
+      sidebar.classList.add('open');
+      overlay.style.display = 'block';
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+      document.body.classList.add('sidebar-open');
+    }
+  }
+
+  function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (!sidebar || !overlay) return;
+    sidebar.classList.remove('open');
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    document.body.classList.remove('sidebar-open');
+  }
+
+  // Close sidebar on overlay click or resize
+  document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) closeSidebar();
+  });
 
   // Switch branch without re-fetching repo metadata
   async function switchBranch(branch) {
